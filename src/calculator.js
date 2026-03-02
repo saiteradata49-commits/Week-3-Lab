@@ -14,10 +14,24 @@
  *   node calculator.js 5 + 3
  */
 
+function modulo(a, b) {
+  if (b === 0) throw new Error('Division by zero');
+  return a % b;
+}
+
+function power(base, exponent) {
+  return Math.pow(base, exponent);
+}
+
+function squareRoot(n) {
+  if (n < 0) throw new Error('Cannot take square root of negative number');
+  return Math.sqrt(n);
+}
+
 function calculate(num1, operator, num2) {
   const a = parseFloat(num1);
   const b = parseFloat(num2);
-  if (isNaN(a) || isNaN(b)) {
+  if (isNaN(a) || (operator !== '√' && isNaN(b))) {
     throw new Error('Both operands must be valid numbers');
   }
   switch (operator) {
@@ -34,6 +48,12 @@ function calculate(num1, operator, num2) {
         throw new Error('Division by zero');
       }
       return a / b;
+    case '%':
+      return modulo(a, b);
+    case '^':
+      return power(a, b);
+    case '√':
+      return squareRoot(a);
     default:
       throw new Error('Unsupported operator');
   }
@@ -58,4 +78,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { calculate };
+module.exports = { calculate, modulo, power, squareRoot };
